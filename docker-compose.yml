@@ -14,9 +14,11 @@ services:
       WORDPRESS_DB_NAME: exampledb
     volumes:
       - wordpress:/var/www/html
+    networks:
+      - net_wp
 
   db:
-    image: mysql:5.7
+    image: mysql:11.0.3-jammy
     restart: always
     environment:
       MYSQL_DATABASE: exampledb
@@ -25,15 +27,24 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
       - db:/var/lib/mysql
+    networks:
+      - net_wp
+      - net_pma
 
   phpmyadmin:
-    image: phpmyadmin
+    image: phpmyadmin:6.3.0-php8.2-apache
     restart: always
     ports:
       - 8080:2345
     environment:
       - PMA_ARBITRARY=1
+    networks:
+      - net_pma
 
 volumes:
   wordpress:
   db:
+
+networks:
+  net_wp:
+  net_pma:
