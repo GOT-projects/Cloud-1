@@ -18,7 +18,7 @@ services:
       - net_wp
 
   db:
-    image: mysql:11.0.3-jammy
+    image: mysql:8.1.0-oracle
     restart: always
     environment:
       MYSQL_DATABASE: exampledb
