@@ -41,9 +41,9 @@ services:
     networks:
       - net_pma
 
-volumes:
-  wordpress:
-  db:
+# volumes:
+#   wordpress:
+#   db:
 
 networks:
   net_wp:
