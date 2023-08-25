@@ -32,7 +32,7 @@ services:
       - net_pma
 
   phpmyadmin:
-    image: phpmyadmin:6.3.0-php8.2-apache
+    image: phpmyadmin:5.2.1-apache
     restart: always
     ports:
       - 8081:80
