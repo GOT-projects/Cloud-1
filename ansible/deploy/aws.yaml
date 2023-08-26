@@ -25,3 +25,6 @@
           count: 1
           tags:
             name: "{{ v_tagName }}" 
+    - name: Display EC2 Instance Result
+      debug:
+        var: ec2_instance_result
