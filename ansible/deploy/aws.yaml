@@ -1,0 +1,27 @@
+- hosts: localhost
+  become: yes
+  gather_facts: no
+  vars:
+    v_instance:
+    v_tagName: 
+    v_aws_access_key:
+    v_aws_secret_key:
+    v_instance_type:
+    v_image_id:
+    v_region:
+    v_security_group:
+  tasks:
+    - name: Deploy ec2
+      amazon.aws.ec2_instance:
+        name: "{{ v_instance }}"
+        aws_access_key: "{{ v_aws_access_key }}"
+        aws_secret_key: "{{ v_aws_secret_key }}"
+        instance_type: "{{ v_instance_type }}"
+        image_id: "{{ v_image_id }}"
+        region: "{{ v_region }}"
+        security_group: "{{ v_security_group }}"      
+        network:
+          assign_public_ip: true
+          count: 1
+          tags:
+            name: "{{ v_tagName }}" 
