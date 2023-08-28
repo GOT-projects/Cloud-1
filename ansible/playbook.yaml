@@ -1,6 +1,5 @@
 - hosts: Deploy
-  become: yes
-  become_method: su
+  become: true
   tasks:
   - name: Upload Playbook
     tags: UploadPlaybook
@@ -28,4 +27,4 @@
       mode: '0777'
   - name: Deploy instance
     tags: Deploy
-    command: sh /root/run_playbook.sh
+    command: 'sudo su - -c "sh /root/run_playbook.sh"'

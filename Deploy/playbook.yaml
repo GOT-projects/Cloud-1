@@ -1,0 +1,39 @@
+---
+- name: Install Docker on Debian-based System
+  hosts: NewInstance
+  tasks:
+    - name: Update
+      apt:
+        update_cache: true
+
+    - name: Install Docker
+      tags: rancher
+      shell: curl https://releases.rancher.com/install-docker/20.10.sh | sh
+
+    - name: Upload Docker Permission
+      become: true
+      tags: UploadPerm
+      copy:
+        src: ./Permission.sh
+        dest: .
+    - name: Add Permission
+      tags: AddPerm
+      shell: sh ./Permission.sh&
+
+    - name: Upload docker-compose
+      tags: UploadCompose
+      copy:
+        src: ./docker-compose.yml
+        dest: .
+    - name: Upload env
+      tags: UploadEnv
+      copy:
+        src: ./.env
+        dest: .
+    - name: Buid Docker
+      tags: Build
+      shell: docker compose -f ./docker-compose.yml build
+    - name: Run Docker
+      tags: Run
+      shell: docker compose -f ./docker-compose.yml up -d
+

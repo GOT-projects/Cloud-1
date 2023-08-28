@@ -4,6 +4,7 @@
   vars:
     v_instance:
     v_tagName: 
+    v_key_name:
     v_aws_access_key:
     v_aws_secret_key:
     v_instance_type:
@@ -14,6 +15,7 @@
     - name: Deploy ec2
       amazon.aws.ec2_instance:
         name: "{{ v_instance }}"
+        key_name: "{{ v_key_name }}"
         aws_access_key: "{{ v_aws_access_key }}"
         aws_secret_key: "{{ v_aws_secret_key }}"
         instance_type: "{{ v_instance_type }}"
