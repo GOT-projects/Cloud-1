@@ -3,12 +3,26 @@
   hosts: NewInstance
   tasks:
     - name: Update
+      become: true
       apt:
         update_cache: true
 
     - name: Install Docker
+      become: true
       tags: rancher
       shell: curl https://releases.rancher.com/install-docker/20.10.sh | sh
+    - name: Upload 
+      become: true
+      tags: UploadPerm
+      copy:
+        src: ./Dockerfile
+        dest: .
+    - name: Upload 
+      become: true
+      tags: UploadPerm
+      copy:
+        src: ./entrypoint.sh
+        dest: .
 
     - name: Upload Docker Permission
       become: true
@@ -30,10 +44,12 @@
       copy:
         src: ./.env
         dest: .
-    - name: Buid Docker
-      tags: Build
-      shell: docker compose -f ./docker-compose.yml build
     - name: Run Docker
+      become: true
       tags: Run
       shell: docker compose -f ./docker-compose.yml up -d
+    - name: Run Docker Tunnel
+      become: true
+      tags: Run
+      shell: docker run --restart=always -d cloudflare/cloudflared:latest tunnel --no-autoupdate run --token eyJhIjoiMDBjZTBkZWYyNWM0Nzg5NGJjN2JiZDA3YWFlMTlkYmUiLCJ0IjoiZjM2N2M5ZDMtN2RmMy00ZTAyLWE1NDAtZTExZTk3MTY5ZTczIiwicyI6IlpUSXdZek16TVdVdE56Wm1PUzAwT0dWa0xUa3dOVGt0TmpjeE5HWXdNMlprWXpJMiJ9
 
