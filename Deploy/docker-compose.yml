@@ -8,16 +8,29 @@ services:
     env_file: .env
     ports:
       - 8080:80
-    # volumes:
-    #   - wordpress:/var/www/html
+    volumes:
+      - ./wordpress:/var/www/html
     networks:
       - net_wp
+
+  wordpress_cli:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure
+    env_file: .env
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./entrypoint.sh:/entrypoint.sh
+    networks:
+      - net_wp
+    entrypoint: bash /entrypoint.sh
 
   db:
     image: mysql:8.1.0-oracle
     restart: always
-    # volumes:
-    #   - db:/var/lib/mysql
+    volumes:
+      - ./mysql:/var/lib/mysql
 
     env_file: .env
     networks:
@@ -32,10 +45,6 @@ services:
       - 8081:80
     networks:
       - net_pma
-
-# volumes:
-#   wordpress:
-#   db:
 
 networks:
   net_wp:
