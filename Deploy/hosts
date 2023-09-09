@@ -1,2 +1,2 @@
 [NewInstance]
-ubuntu@16.171.225.198 ansible_ssh_private_key_file=./ansible/perm/cloud.pem ansible_ssh_user=ubuntu
+ubuntu@13.50.16.11 ansible_ssh_private_key_file=./ansible/perm/cloud.pem ansible_ssh_user=ubuntu
