@@ -4,19 +4,22 @@ services:
 
   wordpress:
     image: wordpress
+    depends_on:
+      - db
     restart: always
     env_file: .env
-    ports:
-      - 8080:80
     volumes:
       - ./wordpress:/var/www/html
     networks:
       - net_wp
+      - net_cloudflare
 
   wordpress_cli:
     build:
       context: ./
       dockerfile: Dockerfile
+    depends_on:
+      - db
     restart: on-failure
     env_file: .env
     volumes:
@@ -31,7 +34,6 @@ services:
     restart: always
     volumes:
       - ./mysql:/var/lib/mysql
-
     env_file: .env
     networks:
       - net_wp
@@ -39,6 +41,8 @@ services:
 
   phpmyadmin:
     image: phpmyadmin:5.2.1-apache
+    depends_on:
+      - db
     restart: always
     env_file: .env
     ports:
@@ -49,3 +53,4 @@ services:
 networks:
   net_wp:
   net_pma:
+  net_cloudflare:
