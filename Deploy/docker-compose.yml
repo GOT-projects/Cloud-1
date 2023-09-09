@@ -13,6 +13,11 @@ services:
     networks:
       - net_wp
       - net_cloudflare
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: "tunnel --no-autoupdate run --token ${TOKEN}"
+    networks:
+      - net_wp
 
   wordpress_cli:
     build:
