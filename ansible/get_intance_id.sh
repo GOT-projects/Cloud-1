@@ -14,5 +14,5 @@ EOF
 echo Create hosts ansible new instance
 cat <<EOF > ../Deploy/hosts
 [NewInstance]
-ubuntu@$IP_ADDRESS ansible_ssh_private_key_file=./ansible/perm/cloud.pem ansible_ssh_user=ubuntu
+ubuntu@$IP_ADDRESS ansible_ssh_extra_args='-o StrictHostKeyChecking=no' ansible_ssh_private_key_file=./ansible/perm/cloud.pem ansible_ssh_user=ubuntu
 EOF
