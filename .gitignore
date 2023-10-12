@@ -1,2 +1,5 @@
 Deploy/mysql/
 Deploy/wordpress/
+Deploy/hosts
+ansible/.env_deploy
+ansible/env_deploy
